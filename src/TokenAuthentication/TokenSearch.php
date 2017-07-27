@@ -28,9 +28,10 @@ class TokenSearch
         if (isset($this->options['header'])) {
             if ($request->hasHeader($this->options['header'])) {
                 $header = $request->getHeader($this->options['header'])[0];
-                if (preg_match($this->options['regex'], $header, $matches)) {
-                    return $matches[1];
-                }
+//                if (preg_match($this->options['regex'], $header, $matches)) {
+//                    return $matches[1];
+//                }
+                return $header;
             }
         }
 

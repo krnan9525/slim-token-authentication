@@ -67,7 +67,7 @@ class TokenAuthentication
                 return $this->error($request, $response);
             }
 
-            return $next($request, $response);
+            return $next($this->options['authenticator']($request, $this), $response);
 
         } catch (UnauthorizedExceptionInterface $e) {
             $this->setResponseMessage($e->getMessage());
@@ -113,11 +113,11 @@ class TokenAuthentication
     {
         /** If exists a custom error function callable, ignore remaining code */
         if (!empty($this->options['error'])) {
-            
+
             $custom_error_response = $this->options['error']($request, $response, $this);
 
             if ($custom_error_response instanceof Response) {
-               return $custom_error_response;
+                return $custom_error_response;
             } else {
                 throw new \Exception("The error function must return an object of class Response.");
             }
